@@ -2,11 +2,100 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <title>FARKLE dice game</title>
+    <meta
+      name="description"
+      content="FARKE is a popular dice game where you take risk to score 10 000 points first."
+    />
+    <meta name="keywords" content="farkle, dice, game, 10000, fun" />
+    <meta name="author" content="Olga Baranek" />
+
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>FARKLE dice game</title>
+    <link rel="stylesheet" href="style.css" type="text/css" />
   </head>
-  <body style="background-color: rgb(71, 67, 67)">
+
+  <body>
+    <div id="container">
+      <nav id="sidebar">
+        <div class="helpBtn"></div>
+        <div class="helpBtn"></div>
+        <div class="helpBtn"></div>
+
+        <h1 id="title">
+          <p>FARKLE</p>
+          dice game
+        </h1>
+      </nav>
+
+      <main id="maincontent">
+        <div id="message">Choose dice by clicking on it.</div>
+        <div id="gamearea">
+          <section class="section">
+            <div class="empty"></div>
+            <div class="player">
+              PLAYER 1
+              <div id="total">
+                TOTAL
+                <p>750</p>
+              </div>
+            </div>
+            <div class="player">
+              PLAYER 2
+              <div id="total">
+                TOTAL
+                <p>1850</p>
+              </div>
+            </div>
+            <div class="empty">
+              <button class="btn">PLAY AGAIN</button>
+            </div>
+          </section>
+          <section class="section">
+            <div class="stripe"></div>
+            <div class="stripe"></div>
+          </section>
+          <section class="section">
+            <div class="empty">
+              <p>SCORE</p>
+              <div id="score" class="btn">0</div>
+            </div>
+
+            <div class="empty"></div>
+
+            <div id="gameboard">
+              <img src="img/dice-1.jpg" class="img" />
+              <img src="img/dice-2.jpg" class="img" />
+              <img src="img/dice-3.jpg" class="img" />
+              <img src="img/dice-4.jpg" class="img" />
+              <img src="img/dice-5.jpg" class="img" />
+              <img src="img/dice-6.jpg" class="img" />
+            </div>
+            <div class="empty"></div>
+            <div class="empty"></div>
+
+            <button class="btn" id="roll">ROLL</button>
+            <button class="btn" id="check">CHECK SCORE</button>
+            <button class="btn" id="add">ADD SCORE</button>
+            <button class="btn" id="keep">KEEP ROLLING</button>
+          </section>
+          <section class="section">
+            <div class="stripe">1</div>
+            <div class="stripe">2</div>
+          </section>
+        </div>
+      </main>
+    </div>
+
+    <footer id="footer">
+      <p>
+        Copyright &copy; 2021 Olga Baranek.
+        <a href="https://www.linkedin.com/in/olga-baranek/"
+          ><img src="img/linkedin-icon.png" class="linkedin"
+        /></a>
+      </p>
+    </footer>
+
     <script src="script.js"></script>
   </body>
 </html>
