@@ -1,11 +1,13 @@
 'use strict';
 
-let diceResults = [1, 5, 3, 4, 6, 2];
-let score = 0;
+//-----------------------------------------------------------------------
+//           CHECK SCORE functions
+//_______________________________________________________________________
 
 // player freezes -1- or -2- dice and checks score
 
 const oneTwoDice = function (arr) {
+  score = 0;
   for (let i = 0; i < arr.length; i++) {
     if (arr[i] === 1) {
       score += 100;
@@ -45,7 +47,7 @@ const fourDice = function (arr) {
     score = 1000;
   } else {
     const arr2 = arr.sort();
-    console.log(arr2);
+    //console.log(arr2);
 
     for (let i = 0; i < arr.length; i++) {
       if (arr2[i + 1] > arr2[i]) {
@@ -62,7 +64,7 @@ const fourDice = function (arr) {
         if (arr2[i + 3] === 5) score += 50;
         break;
       } else {
-        score = 0;
+        //score = 0;
         oneTwoDice(arr2);
         break;
       }
@@ -81,7 +83,7 @@ const fiveDice = function (arr) {
     score = 2000;
   } else {
     const arr2 = arr.sort();
-    console.log(arr2);
+    //console.log(arr2);
 
     for (let i = 0; i < arr2.length; i++) {
       if (arr2[i + 1] > arr2[i]) {
@@ -108,7 +110,7 @@ const fiveDice = function (arr) {
           if (arr2[i] === 5) score += 50;
           continue;
         } else {
-          score = 0;
+          //score = 0;
           oneTwoDice(arr2);
           break;
         }
@@ -140,7 +142,7 @@ const sixDice = function (arr) {
     score = 3000; // all equal
   } else {
     const arr2 = arr.sort();
-    console.log(arr2);
+    //console.log(arr2);
 
     // array split in smaller arrays
     arr_3a = arr2.slice(0, 3);
@@ -217,7 +219,7 @@ const sixDice = function (arr) {
             if (arr2[i] === 5) score += 50;
             continue;
           } else {
-            score = 0;
+            //score = 0;
             oneTwoDice(arr2);
             break;
           }
@@ -228,5 +230,187 @@ const sixDice = function (arr) {
   return score;
 };
 
-console.log(sixDice(diceResults));
-score = 0;
+// console.log(sixDice(diceResults));
+// score = 0;
+
+//-----------------------------------------------------------------------
+//           GAME LOGIC
+//_______________________________________________________________________
+
+// variables
+
+let totalScore1, totalScore2, score, newScore;
+let diceResults = [];
+let newDiceResults = [];
+let notUsedDice = [];
+
+const message = document.querySelector('#message');
+const diceImages = document.querySelectorAll('.img');
+const checkBtn = document.querySelector('#check');
+const scoreTable = document.querySelector('#score');
+const total1 = document.querySelector('#current--0');
+const total2 = document.querySelector('#current--1');
+const addBtn = document.getElementById('add');
+const keepBtn = document.getElementById('keep');
+const rollBtn = document.getElementById('roll');
+
+// start conditions
+
+function init() {
+  message.textContent = 'PLAYER 1 ROLLS THE DICE';
+  totalScore1 = 0;
+  totalScore2 = 0;
+  total1.textContent = '0';
+  total2.textContent = '0';
+  score = 0;
+  newScore = 0;
+  scoreTable.textContent = '0';
+
+  for (let i = 0; i < diceImages.length; i++) {
+    diceImages[i].classList.add('dice--blocked');
+  }
+  scoreTable.classList.add('avoid-clicks');
+  rollBtn.classList.add('active-btn');
+  checkBtn.classList.add('non-active-btn', 'avoid-clicks');
+}
+init();
+
+// function blockedDice() {
+//   for (let i = 0; i < diceImages.length; i++) {
+//     diceImages[i].classList.add('img--chosen');
+//     diceImages[i].classList.add('avoid-clicks');
+//   }
+// }
+
+// rolling the dice
+
+function generateNumbers() {
+  newDiceResults = [];
+  notUsedDice = [];
+  //diceResults = []; //??
+
+  for (let i = 0; i < diceImages.length; i++) {
+    if (!diceImages[i].classList.contains('dice--chosen')) {
+      diceResults[i] = Math.trunc(Math.random() * 6) + 1;
+      document.getElementById(
+        `dice-${i + 1}`
+      ).src = `img/dice-${diceResults[i]}.jpg`;
+      newDiceResults.push(diceResults[i]);
+    } else {
+      notUsedDice.push(diceResults[i]);
+    }
+  }
+  console.log(newDiceResults);
+  console.log(notUsedDice);
+  console.log(diceResults);
+}
+
+rollBtn.addEventListener('click', function () {
+  console.log('ROLL btn clicked.');
+
+  // unlocking all dice
+  for (let i = 0; i < diceImages.length; i++) {
+    diceImages[i].classList.remove('dice--blocked');
+  }
+
+  generateNumbers();
+
+  // console.log(diceResults);
+  // console.log(notUsedDice);
+
+  rollBtn.classList.remove('active-btn');
+  rollBtn.classList.add('non-active-btn', 'avoid-clicks');
+  message.textContent = 'Choose dice by clicking on it';
+});
+
+// choosing dice by clicking on it (+ unclicking)
+
+for (let i = 0; i < diceImages.length; i++) {
+  diceImages[i].addEventListener('click', function () {
+    diceImages[i].classList.toggle('dice--chosen');
+
+    checkBtn.style.backgroundColor = '#18a095';
+    checkBtn.classList.remove('avoid-clicks');
+  });
+}
+
+// checking score
+
+const checkScore = function () {
+  checkBtn.style.backgroundColor = '';
+  checkBtn.classList.add('avoid-clicks');
+
+  console.log(newDiceResults);
+  console.log(notUsedDice);
+
+  // counting score - function type depending on a number of chosen dice
+  //swich ?
+
+  if (newDiceResults.length === 1 || newDiceResults.length === 2) {
+    newScore += oneTwoDice(newDiceResults);
+    console.log(newScore);
+  } else if (newDiceResults.length === 3) {
+    newScore += threeDice(newDiceResults);
+    console.log(newScore);
+  } else if (newDiceResults.length === 4) {
+    newScore += fourDice(newDiceResults);
+    console.log(newScore);
+  } else if (newDiceResults.length === 5) {
+    newScore += fiveDice(newDiceResults);
+    console.log(newScore);
+  } else if (newDiceResults.length === 6) {
+    newScore += sixDice(newDiceResults);
+    console.log(newScore);
+  } else {
+    console.log('No dice was chosen');
+  }
+
+  console.log(score);
+
+  if (score === 0) {
+    newScore = 0;
+    scoreTable.textContent = 0;
+    playerChange();
+    message.textContent = 'YOU LOOSE ALL CURRENT POINTS';
+  } else {
+    scoreTable.textContent = newScore;
+    keepBtn.classList.add('active-btn');
+    addBtn.classList.add('active-btn');
+    message.classList.remove('message--new');
+  }
+};
+
+checkBtn.addEventListener('click', checkScore);
+
+function keepRolling() {
+  for (let i = 0; i < diceImages.length; i++) {
+    if (diceImages[i].classList.contains('dice--chosen'))
+      diceImages[i].classList.add('dice--blocked');
+  }
+
+  keepBtn.classList.remove('active-btn');
+  addBtn.classList.remove('active-btn');
+}
+
+keepBtn.addEventListener('click', keepRolling);
+
+// adding score to total score / change of player
+
+function playerChange() {}
+
+// modify for active player
+function addScore() {
+  totalScore1 += newScore;
+  total1.textContent = totalScore1;
+  keepBtn.classList.remove('active-btn');
+  addBtn.classList.remove('active-btn');
+}
+
+addBtn.addEventListener('click', addScore);
+
+// play again
+document.querySelector('.play-again').addEventListener('click', init);
+
+//-----------------------------------------------------------------------
+//           NAVIGATION - side bar buttons
+//_______________________________________________________________________

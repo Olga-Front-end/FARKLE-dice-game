@@ -24,7 +24,7 @@ body::after {
   bottom: 0;
   right: 0;
   position: absolute;
-  z-index: -1;
+  z-index: -2;
 }
 
 #container {
@@ -76,7 +76,7 @@ body::after {
   text-align: center;
 }
 
-#message:hover {
+.message--new {
   background-color: #cead70;
   opacity: 0.5;
   color: #022421;
@@ -103,6 +103,21 @@ body::after {
   transform: rotate(-20deg);
 }
 
+.dice--chosen {
+  opacity: 0.6;
+  box-shadow: 0rem 0rem 1rem rgb(248, 248, 246);
+}
+
+.avoid-clicks {
+  pointer-events: none;
+}
+
+.dice--blocked {
+  pointer-events: none;
+  opacity: 0.6;
+  box-shadow: 0rem 0rem 1rem rgb(248, 248, 246);
+}
+
 .section {
   flex: 25%;
   //border: 1px solid white;
@@ -126,6 +141,7 @@ body::after {
 .player {
   box-sizing: border-box;
   background-image: linear-gradient(to right, #022421 0%, #cead70 100%);
+  opacity: 0.3;
   width: 100%;
   //border: 3px solid #18a095;
   border-left: none;
@@ -133,16 +149,35 @@ body::after {
   flex-grow: 1.5;
   text-align: center;
 }
+
+.player--active {
+  background-image: linear-gradient(to right, #022421 0%, #ff724c 100%);
+  opacity: 0.8;
+}
+
+.player--active #total {
+  background-color: #207a74;
+  opacity: 1;
+}
+
 .stripe {
   flex: 2%;
   box-sizing: border-box;
   background-color: #cead70;
+  opacity: 0.3;
+  z-index: -1;
   width: 100%;
   color: #022421;
   padding: 25px 10px 0 0;
   //border: 1px solid white;
   flex-grow: 0.1;
   text-align: right;
+}
+
+.stripe--active {
+  background-color: #ff724c;
+  opacity: 0.8;
+  z-index: -1;
 }
 
 #gameboard {
@@ -162,11 +197,10 @@ body::after {
 }
 
 #total {
-  border: 2px solid white;
+  border: 3px solid white;
   margin-top: 40px;
   padding: 20px 0 20px 0;
-  opacity: 0.3;
-  background-color: #18a095;
+  background-color: #144f4b;
 }
 
 .btn {
@@ -198,7 +232,7 @@ body::after {
 #roll {
   position: absolute;
   transform: translate(10rem, -10rem);
-  background-color: rgb(85, 85, 85);
+  //background-color: rgb(85, 85, 85);
 }
 
 #roll:active {
@@ -213,7 +247,6 @@ body::after {
 }
 
 #add:active {
-  background-color: #cead70;
   box-shadow: 0rem 0rem 2rem rgba(255, 255, 255, 0.7);
 }
 
@@ -223,7 +256,6 @@ body::after {
 }
 
 #keep:active {
-  background-color: #cead70;
   box-shadow: 0rem 0rem 2rem rgba(255, 255, 255, 0.7);
 }
 
@@ -231,16 +263,19 @@ body::after {
   position: absolute;
   width: 140px;
   transform: translate(0rem, 8rem);
-  background-color: #396b64;
-}
-
-#check:hover {
-  background-color: #18a095;
 }
 
 #check:active {
   background-color: #cead70;
   box-shadow: 0rem 0rem 2rem rgba(255, 255, 255, 0.7);
+}
+
+.non-active-btn {
+  background-color: #396b64;
+}
+
+.active-btn {
+  background-color: #cead70;
 }
 
 #footer {
@@ -261,3 +296,5 @@ body::after {
   right: 0.5rem;
   bottom: 1.5rem;
 }
+
+//____________________________________________________________________
