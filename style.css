@@ -71,6 +71,11 @@ body::after {
   opacity: 0.5;
   color: #022421; }
 
+.message--alert {
+  background-color: #ff724c;
+  opacity: 0.5;
+  color: #022421; }
+
 #gamearea {
   display: flex;
   box-sizing: border-box;
@@ -97,6 +102,11 @@ body::after {
   pointer-events: none; }
 
 .dice--blocked {
+  pointer-events: none;
+  opacity: 0.6;
+  box-shadow: 0rem 0rem 1rem #f8f8f6; }
+
+.dice--blocked--init {
   pointer-events: none;
   opacity: 0.6;
   box-shadow: 0rem 0rem 1rem #f8f8f6; }
@@ -141,7 +151,8 @@ body::after {
   z-index: -1;
   width: 100%;
   color: #022421;
-  padding: 25px 10px 0 0;
+  padding: 40px 10px 0 0;
+  font-weight: bold;
   flex-grow: 0.1;
   text-align: right; }
 

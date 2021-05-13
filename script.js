@@ -18,13 +18,9 @@ const oneTwoDice = function (arr) {
   return score;
 };
 
-// console.log(oneTwoDice(diceResults));
-// score = 0;
-
 // player freezes -3- dice and checks score
 
 const allEqual = (arr) => arr.every((val) => val === arr[0]);
-// true/false
 
 const threeDice = function (arr) {
   if (allEqual(arr)) {
@@ -37,9 +33,6 @@ const threeDice = function (arr) {
   return score;
 };
 
-// console.log(threeDice(diceResults));
-// score = 0;
-
 // player freezes -4- dice and checks score
 
 const fourDice = function (arr) {
@@ -47,7 +40,6 @@ const fourDice = function (arr) {
     score = 1000;
   } else {
     const arr2 = arr.sort();
-    //console.log(arr2);
 
     for (let i = 0; i < arr.length; i++) {
       if (arr2[i + 1] > arr2[i]) {
@@ -59,12 +51,11 @@ const fourDice = function (arr) {
       } else if (arr2[i + 2] === arr2[i]) {
         if (arr2[i] === 1) {
           score += 300;
-        } else score += arr2[i] * 100; // repeated
+        } else score += arr2[i] * 100;
 
         if (arr2[i + 3] === 5) score += 50;
         break;
       } else {
-        //score = 0;
         oneTwoDice(arr2);
         break;
       }
@@ -73,17 +64,13 @@ const fourDice = function (arr) {
   return score;
 };
 
-// console.log(fourDice(diceResults));
-// score = 0;
-
 // player freezes -5- dice and checks score
 
 const fiveDice = function (arr) {
-  if (allEqual(diceResults)) {
+  if (allEqual(arr)) {
     score = 2000;
   } else {
     const arr2 = arr.sort();
-    //console.log(arr2);
 
     for (let i = 0; i < arr2.length; i++) {
       if (arr2[i + 1] > arr2[i]) {
@@ -99,7 +86,7 @@ const fiveDice = function (arr) {
       } else if (arr2[i + 2] === arr2[i] && arr2[i + 3] !== arr2[i]) {
         if (arr2[i] === 1) {
           score += 300;
-        } else score += arr2[i] * 100; // repeated
+        } else score += arr2[i] * 100;
 
         if (arr2[i + 3] === 5) score += 50;
         if (arr2[i + 4] === 5) score += 50;
@@ -110,7 +97,6 @@ const fiveDice = function (arr) {
           if (arr2[i] === 5) score += 50;
           continue;
         } else {
-          //score = 0;
           oneTwoDice(arr2);
           break;
         }
@@ -119,9 +105,6 @@ const fiveDice = function (arr) {
   }
   return score;
 };
-
-// console.log(fiveDice(diceResults));
-// score = 0;
 
 // player freezes -6- dice and checks score
 
@@ -138,11 +121,10 @@ let arr_3a,
   arr_5b;
 
 const sixDice = function (arr) {
-  if (allEqual(diceResults)) {
-    score = 3000; // all equal
+  if (allEqual(arr)) {
+    score = 3000;
   } else {
     const arr2 = arr.sort();
-    //console.log(arr2);
 
     // array split in smaller arrays
     arr_3a = arr2.slice(0, 3);
@@ -202,16 +184,16 @@ const sixDice = function (arr) {
         } else if (arr2[i + 2] === arr2[i] && arr2[i + 3] === arr2[i]) {
           score += 1000;
           if (arr2[i + 4] === 5) score += 50;
-          if (arr2[i + 5] === 5) score += 50; // new line
+          if (arr2[i + 5] === 5) score += 50;
           break;
         } else if (arr2[i + 2] === arr2[i] && arr2[i + 3] !== arr2[i]) {
           if (arr2[i] === 1) {
             score += 300;
-          } else score += arr2[i] * 100; // repeated
+          } else score += arr2[i] * 100;
 
           if (arr2[i + 3] === 5) score += 50;
           if (arr2[i + 4] === 5) score += 50;
-          if (arr2[i + 5] === 5) score += 50; // new line
+          if (arr2[i + 5] === 5) score += 50;
           break;
         } else {
           if (arr2[i] === arr2[i + 1]) {
@@ -219,7 +201,6 @@ const sixDice = function (arr) {
             if (arr2[i] === 5) score += 50;
             continue;
           } else {
-            //score = 0;
             oneTwoDice(arr2);
             break;
           }
@@ -230,93 +211,109 @@ const sixDice = function (arr) {
   return score;
 };
 
-// console.log(sixDice(diceResults));
-// score = 0;
-
 //-----------------------------------------------------------------------
 //           GAME LOGIC
 //_______________________________________________________________________
 
 // variables
 
-let totalScore1, totalScore2, score, newScore;
+let score, newScore, activePlayer;
 let diceResults = [];
 let newDiceResults = [];
 let notUsedDice = [];
+let totalScores = [];
 
 const message = document.querySelector('#message');
 const diceImages = document.querySelectorAll('.img');
-const checkBtn = document.querySelector('#check');
+
+const player1 = document.querySelector('#player--0');
+const player2 = document.querySelector('#player--1');
+
 const scoreTable = document.querySelector('#score');
-const total1 = document.querySelector('#current--0');
-const total2 = document.querySelector('#current--1');
+
+const checkBtn = document.getElementById('check');
 const addBtn = document.getElementById('add');
 const keepBtn = document.getElementById('keep');
 const rollBtn = document.getElementById('roll');
 
+const stripe1L = document.querySelector('#stripe--0L');
+const stripe1R = document.querySelector('#stripe--0R');
+const stripe2L = document.querySelector('#stripe--1L');
+const stripe2R = document.querySelector('#stripe--1R');
+
 // start conditions
 
+function player1active() {
+  activePlayer = 0;
+  player1.classList.add('player--active');
+  player2.classList.remove('player--active');
+
+  stripe1L.classList.add('stripe--active');
+  stripe1R.classList.add('stripe--active');
+  stripe2L.classList.remove('stripe--active');
+  stripe2R.classList.remove('stripe--active');
+}
+player1active();
+
 function init() {
-  message.textContent = 'PLAYER 1 ROLLS THE DICE';
-  totalScore1 = 0;
-  totalScore2 = 0;
-  total1.textContent = '0';
-  total2.textContent = '0';
+  message.textContent = `PLAYER ${activePlayer + 1}  ROLLS THE DICE`;
+  message.classList.remove('message--alert');
+  message.classList.add('message--new');
+
   score = 0;
   newScore = 0;
   scoreTable.textContent = '0';
 
   for (let i = 0; i < diceImages.length; i++) {
-    diceImages[i].classList.add('dice--blocked');
+    diceImages[i].classList.add('dice--blocked--init');
+    diceImages[i].classList.remove(
+      'dice--chosen',
+      'avoid-clicks',
+      'dice--blocked'
+    );
   }
   scoreTable.classList.add('avoid-clicks');
   rollBtn.classList.add('active-btn');
+  rollBtn.classList.remove('avoid-clicks');
   checkBtn.classList.add('non-active-btn', 'avoid-clicks');
+  keepBtn.classList.add('avoid-clicks');
+  addBtn.classList.add('avoid-clicks');
 }
 init();
 
-// function blockedDice() {
-//   for (let i = 0; i < diceImages.length; i++) {
-//     diceImages[i].classList.add('img--chosen');
-//     diceImages[i].classList.add('avoid-clicks');
-//   }
-// }
+function initTotal() {
+  totalScores = [0, 0];
+  document.querySelector('#current--0').textContent = 0;
+  document.querySelector('#current--1').textContent = 0;
+}
+initTotal();
 
-// rolling the dice
+// generating new numbers
 
 function generateNumbers() {
-  newDiceResults = [];
-  notUsedDice = [];
-  //diceResults = []; //??
-
   for (let i = 0; i < diceImages.length; i++) {
-    if (!diceImages[i].classList.contains('dice--chosen')) {
+    if (!diceImages[i].classList.contains('dice--blocked')) {
       diceResults[i] = Math.trunc(Math.random() * 6) + 1;
       document.getElementById(
         `dice-${i + 1}`
       ).src = `img/dice-${diceResults[i]}.jpg`;
-      newDiceResults.push(diceResults[i]);
-    } else {
-      notUsedDice.push(diceResults[i]);
-    }
+      console.log(diceResults[i]);
+    } else continue;
   }
-  console.log(newDiceResults);
-  console.log(notUsedDice);
-  console.log(diceResults);
+  //console.log(diceResults);
 }
+
+// rolling the dice
 
 rollBtn.addEventListener('click', function () {
   console.log('ROLL btn clicked.');
 
-  // unlocking all dice
+  // unlocking initial block and allowing clicks on current dice
   for (let i = 0; i < diceImages.length; i++) {
-    diceImages[i].classList.remove('dice--blocked');
+    diceImages[i].classList.remove('dice--blocked--init', 'avoid-clicks');
   }
 
   generateNumbers();
-
-  // console.log(diceResults);
-  // console.log(notUsedDice);
 
   rollBtn.classList.remove('active-btn');
   rollBtn.classList.add('non-active-btn', 'avoid-clicks');
@@ -325,26 +322,59 @@ rollBtn.addEventListener('click', function () {
 
 // choosing dice by clicking on it (+ unclicking)
 
+let areNotChosen;
+
 for (let i = 0; i < diceImages.length; i++) {
   diceImages[i].addEventListener('click', function () {
     diceImages[i].classList.toggle('dice--chosen');
 
     checkBtn.style.backgroundColor = '#18a095';
     checkBtn.classList.remove('avoid-clicks');
+
+    areNotChosen = false;
+    message.classList.add('message--new');
   });
 }
 
 // checking score
 
+function wait3sec() {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(playerChange(), init());
+    }, 3000);
+  });
+}
+
 const checkScore = function () {
   checkBtn.style.backgroundColor = '';
   checkBtn.classList.add('avoid-clicks');
 
-  console.log(newDiceResults);
-  console.log(notUsedDice);
+  for (let i = 0; i < diceImages.length; i++) {
+    diceImages[i].classList.add('avoid-clicks');
+  }
+
+  newDiceResults = [];
+  notUsedDice = [];
+  score = 0;
+
+  for (let i = 0; i < diceImages.length; i++) {
+    if (
+      diceImages[i].classList.contains('dice--chosen') &&
+      !diceImages[i].classList.contains('dice--blocked')
+    ) {
+      newDiceResults.push(diceResults[i]);
+    } else {
+      notUsedDice.push(diceResults[i]);
+    }
+  }
+
+  //console.log(newDiceResults);
+  //console.log(notUsedDice);
 
   // counting score - function type depending on a number of chosen dice
-  //swich ?
+
+  areNotChosen = false;
 
   if (newDiceResults.length === 1 || newDiceResults.length === 2) {
     newScore += oneTwoDice(newDiceResults);
@@ -362,54 +392,120 @@ const checkScore = function () {
     newScore += sixDice(newDiceResults);
     console.log(newScore);
   } else {
-    console.log('No dice was chosen');
+    areNotChosen = true;
   }
 
   console.log(score);
 
-  if (score === 0) {
+  if (score === 0 && !areNotChosen) {
     newScore = 0;
     scoreTable.textContent = 0;
-    playerChange();
     message.textContent = 'YOU LOOSE ALL CURRENT POINTS';
+    message.classList.add('message--alert');
+
+    async function asyncCall() {
+      const result = await wait3sec();
+    }
+    asyncCall();
+  } else if (areNotChosen) {
+    message.textContent = 'No dice was chosen';
+    message.classList.remove('message--new');
+    for (let i = 0; i < diceImages.length; i++) {
+      diceImages[i].classList.remove('avoid-clicks');
+    }
   } else {
     scoreTable.textContent = newScore;
     keepBtn.classList.add('active-btn');
     addBtn.classList.add('active-btn');
+    keepBtn.classList.remove('avoid-clicks');
+    addBtn.classList.remove('avoid-clicks');
     message.classList.remove('message--new');
+    message.textContent = 'ADD or CONTINUE ?';
   }
 };
 
 checkBtn.addEventListener('click', checkScore);
 
+// keep rolling button
+
 function keepRolling() {
+  // blocking used dice
   for (let i = 0; i < diceImages.length; i++) {
     if (diceImages[i].classList.contains('dice--chosen'))
       diceImages[i].classList.add('dice--blocked');
   }
 
+  // if all dice are 'dice-blocked' , class is removed and player continues
+  let testArray = [];
+  for (let i = 0; i < diceImages.length; i++) {
+    if (diceImages[i].classList.contains('dice--blocked')) {
+      testArray.push(diceResults[i]);
+    } else continue;
+  }
+  console.log(testArray);
+  for (let i = 0; i < diceImages.length; i++) {
+    if (testArray.length === 6) {
+      diceImages[i].classList.remove('dice--blocked', 'dice--chosen');
+      diceImages[i].classList.add('avoid-clicks');
+    }
+  }
+
   keepBtn.classList.remove('active-btn');
   addBtn.classList.remove('active-btn');
-}
+  keepBtn.classList.add('avoid-clicks');
+  addBtn.classList.add('avoid-clicks');
 
+  rollBtn.classList.add('active-btn');
+  rollBtn.classList.remove('avoid-clicks');
+
+  message.textContent = 'ROLL THE DICE';
+  message.classList.add('message--new');
+}
 keepBtn.addEventListener('click', keepRolling);
 
 // adding score to total score / change of player
 
-function playerChange() {}
+function playerChange() {
+  activePlayer = activePlayer === 1 ? 0 : 1;
+  player1.classList.toggle('player--active');
+  player2.classList.toggle('player--active');
 
-// modify for active player
+  stripe1L.classList.toggle('stripe--active');
+  stripe1R.classList.toggle('stripe--active');
+  stripe2L.classList.toggle('stripe--active');
+  stripe2R.classList.toggle('stripe--active');
+}
+
 function addScore() {
-  totalScore1 += newScore;
-  total1.textContent = totalScore1;
+  totalScores[`${activePlayer}`] += newScore;
+  console.log(totalScores);
+  document.querySelector(`#current--${activePlayer}`).textContent =
+    totalScores[`${activePlayer}`];
+
+  if (totalScores[`${activePlayer}`] >= 10000) playerWins();
+
+  async function asyncCall() {
+    const result = await wait3sec();
+  }
+  asyncCall();
+
   keepBtn.classList.remove('active-btn');
   addBtn.classList.remove('active-btn');
 }
-
 addBtn.addEventListener('click', addScore);
 
-// play again
-document.querySelector('.play-again').addEventListener('click', init);
+// play again button
+document.querySelector('.play-again').addEventListener('click', function () {
+  player1active();
+  initTotal();
+  init();
+});
+
+// winning modal window
+
+function playerWins() {
+  console.log(`Player ${activePlayer + 1} wins!`);
+}
 
 //-----------------------------------------------------------------------
 //           NAVIGATION - side bar buttons
