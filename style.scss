@@ -42,6 +42,14 @@ body::after {
   width: 8%;
 }
 
+.logo {
+  position: absolute;
+  z-index: 1;
+  width: auto;
+  bottom: 10px;
+  font-size: 12px;
+}
+
 .helpBtn {
   flex-shrink: 0;
   margin-top: 4rem;
@@ -52,7 +60,19 @@ body::after {
   box-shadow: 0rem 0rem 1rem rgba(255, 255, 255, 0.7);
   border-radius: 10px;
   cursor: pointer;
+  text-align: center;
+  padding-top: 1rem;
 }
+
+.link {
+  text-decoration: none;
+  color: #cead70;
+  text-align: center;
+}
+
+// .link:hover {
+
+// }
 
 #title {
   transform: rotate(-90deg);
@@ -132,7 +152,6 @@ body::after {
 
 .section {
   flex: 25%;
-  //border: 1px solid white;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -140,9 +159,7 @@ body::after {
 }
 
 .empty {
-  //flex-grow: 1;
   flex: 20%;
-  //border: 1px solid white;
 }
 
 .empty p {
@@ -155,7 +172,6 @@ body::after {
   background-image: linear-gradient(to right, #022421 0%, #cead70 100%);
   opacity: 0.3;
   width: 100%;
-  //border: 3px solid #18a095;
   border-left: none;
   padding: 15px;
   flex-grow: 1.5;
@@ -182,7 +198,6 @@ body::after {
   color: #022421;
   padding: 40px 10px 0 0;
   font-weight: bold;
-  //border: 1px solid white;
   flex-grow: 0.1;
   text-align: right;
 }
@@ -245,7 +260,6 @@ body::after {
 #roll {
   position: absolute;
   transform: translate(10rem, -10rem);
-  //background-color: rgb(85, 85, 85);
 }
 
 #roll:active {
@@ -293,21 +307,38 @@ body::after {
 
 #footer {
   box-sizing: border-box;
-  //background-color: #396b64;
+  background-color: #144f4b;
   opacity: 0.5;
   padding-right: 3rem;
   height: 2rem;
   line-height: 2rem;
   text-align: right;
   font-size: 12px;
-  //border: 1px solid white;
 }
 
 .linkedin {
   position: absolute;
   height: 3rem;
   right: 0.5rem;
-  bottom: 1.5rem;
+  bottom: 1rem;
 }
 
-//____________________________________________________________________
+.modal {
+  position: absolute;
+  right: 21.5vw;
+  left: 53%;
+  text-align: center;
+  background-color: #ff724c;
+  border: 6px solid #033f3a;
+  padding: 2rem;
+  border-radius: 1rem;
+  z-index: 4;
+}
+
+.overlay {
+  filter: blur(2px);
+}
+
+.hidden {
+  display: none;
+}

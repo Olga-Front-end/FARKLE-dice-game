@@ -235,6 +235,10 @@ const checkBtn = document.getElementById('check');
 const addBtn = document.getElementById('add');
 const keepBtn = document.getElementById('keep');
 const rollBtn = document.getElementById('roll');
+const playAgainBtn = document.querySelector('.play-again');
+
+const modal = document.querySelector('.modal');
+const overlay = document.querySelector('#overlay');
 
 const stripe1L = document.querySelector('#stripe--0L');
 const stripe1R = document.querySelector('#stripe--0R');
@@ -259,6 +263,8 @@ function init() {
   message.textContent = `PLAYER ${activePlayer + 1}  ROLLS THE DICE`;
   message.classList.remove('message--alert');
   message.classList.add('message--new');
+  overlay.classList.remove('overlay');
+  modal.classList.add('hidden');
 
   score = 0;
   newScore = 0;
@@ -278,6 +284,7 @@ function init() {
   checkBtn.classList.add('non-active-btn', 'avoid-clicks');
   keepBtn.classList.add('avoid-clicks');
   addBtn.classList.add('avoid-clicks');
+  playAgainBtn.classList.remove('active-btn');
 }
 init();
 
@@ -297,10 +304,10 @@ function generateNumbers() {
       document.getElementById(
         `dice-${i + 1}`
       ).src = `img/dice-${diceResults[i]}.jpg`;
-      console.log(diceResults[i]);
+      //console.log(diceResults[i]);
     } else continue;
   }
-  //console.log(diceResults);
+  console.log(diceResults);
 }
 
 // rolling the dice
@@ -336,8 +343,7 @@ for (let i = 0; i < diceImages.length; i++) {
   });
 }
 
-// checking score
-
+// async player change / initialization
 function wait3sec() {
   return new Promise((resolve) => {
     setTimeout(() => {
@@ -345,6 +351,8 @@ function wait3sec() {
     }, 3000);
   });
 }
+
+// checking score
 
 const checkScore = function () {
   checkBtn.style.backgroundColor = '';
@@ -369,8 +377,8 @@ const checkScore = function () {
     }
   }
 
-  //console.log(newDiceResults);
-  //console.log(notUsedDice);
+  console.log(newDiceResults);
+  console.log(notUsedDice);
 
   // counting score - function type depending on a number of chosen dice
 
@@ -398,9 +406,13 @@ const checkScore = function () {
   console.log(score);
 
   if (score === 0 && !areNotChosen) {
+    if (newScore === 0) {
+      message.textContent = 'NO POINTS THIS TIME...';
+    } else {
+      message.textContent = 'YOU LOOSE ALL CURRENT POINTS';
+    }
     newScore = 0;
     scoreTable.textContent = 0;
-    message.textContent = 'YOU LOOSE ALL CURRENT POINTS';
     message.classList.add('message--alert');
 
     async function asyncCall() {
@@ -435,16 +447,16 @@ function keepRolling() {
       diceImages[i].classList.add('dice--blocked');
   }
 
-  // if all dice are 'dice-blocked' , class is removed and player continues
-  let testArray = [];
+  // if all dice are 'dice-blocked' (all scored), class is removed and player continues
+  let blockedDice = [];
   for (let i = 0; i < diceImages.length; i++) {
     if (diceImages[i].classList.contains('dice--blocked')) {
-      testArray.push(diceResults[i]);
+      blockedDice.push(diceResults[i]);
     } else continue;
   }
-  console.log(testArray);
+  console.log(blockedDice);
   for (let i = 0; i < diceImages.length; i++) {
-    if (testArray.length === 6) {
+    if (blockedDice.length === 6) {
       diceImages[i].classList.remove('dice--blocked', 'dice--chosen');
       diceImages[i].classList.add('avoid-clicks');
     }
@@ -463,7 +475,7 @@ function keepRolling() {
 }
 keepBtn.addEventListener('click', keepRolling);
 
-// adding score to total score / change of player
+// change of player
 
 function playerChange() {
   activePlayer = activePlayer === 1 ? 0 : 1;
@@ -476,18 +488,24 @@ function playerChange() {
   stripe2R.classList.toggle('stripe--active');
 }
 
+// adding current score to total score
+
 function addScore() {
   totalScores[`${activePlayer}`] += newScore;
   console.log(totalScores);
   document.querySelector(`#current--${activePlayer}`).textContent =
     totalScores[`${activePlayer}`];
 
-  if (totalScores[`${activePlayer}`] >= 10000) playerWins();
-
-  async function asyncCall() {
-    const result = await wait3sec();
+  // !! for the purpose of testing winning amount of points is set to 1K instead of 10K
+  if (totalScores[`${activePlayer}`] >= 1000) {
+    playerWins();
+  } else {
+    async function asyncCall() {
+      const result = await wait3sec();
+    }
+    asyncCall();
+    message.textContent = `GREAT!`;
   }
-  asyncCall();
 
   keepBtn.classList.remove('active-btn');
   addBtn.classList.remove('active-btn');
@@ -495,7 +513,8 @@ function addScore() {
 addBtn.addEventListener('click', addScore);
 
 // play again button
-document.querySelector('.play-again').addEventListener('click', function () {
+
+playAgainBtn.addEventListener('click', function () {
   player1active();
   initTotal();
   init();
@@ -505,6 +524,16 @@ document.querySelector('.play-again').addEventListener('click', function () {
 
 function playerWins() {
   console.log(`Player ${activePlayer + 1} wins!`);
+
+  overlay.classList.add('overlay');
+  modal.classList.remove('hidden');
+  modal.textContent = ` YAY ! PLAYER nr ${activePlayer + 1} WINS 🎲`;
+
+  playAgainBtn.classList.add('active-btn');
+  message.textContent = `PLAYER -${activePlayer + 1}-  WINS`;
+  message.classList.add('message--alert');
+  keepBtn.classList.add('avoid-clicks');
+  addBtn.classList.add('avoid-clicks');
 }
 
 //-----------------------------------------------------------------------

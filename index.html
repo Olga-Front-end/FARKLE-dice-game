@@ -18,10 +18,18 @@
   <body>
     <div id="container">
       <nav id="sidebar">
-        <div class="helpBtn"></div>
+        <div class="helpBtn">
+          <a
+            class="link"
+            href="https://gathertogethergames.com/farkle?rq=farkle"
+            target="_blank"
+            >?</a
+          >
+        </div>
         <div class="helpBtn"></div>
         <div class="helpBtn"></div>
 
+        <p class="logo">FARKLE</p>
         <h1 id="title">
           <p>FARKLE</p>
           dice game
@@ -53,11 +61,14 @@
               <button class="btn play-again">PLAY AGAIN</button>
             </div>
           </section>
+
           <section class="section">
             <div class="stripe" id="stripe--0L"></div>
+            <div class="modal hidden">Player wins the game! 🎲</div>
             <div class="stripe" id="stripe--1L"></div>
           </section>
-          <section class="section">
+
+          <section class="section overlay" id="overlay">
             <div class="empty">
               <p>SCORE</p>
               <div id="score" class="btn score-active">0</div>
@@ -73,6 +84,7 @@
               <img src="img/dice-5.jpg" class="img" id="dice-5" />
               <img src="img/dice-6.jpg" class="img" id="dice-6" />
             </div>
+
             <div class="empty"></div>
             <div class="empty"></div>
 
