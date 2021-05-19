@@ -407,7 +407,7 @@ const checkScore = function () {
 
   if (score === 0 && !areNotChosen) {
     if (newScore === 0) {
-      message.textContent = 'NO POINTS THIS TIME...';
+      message.textContent = 'FARKLE! NO POINTS THIS TIME...';
     } else {
       message.textContent = 'YOU LOOSE ALL CURRENT POINTS';
     }
@@ -497,7 +497,7 @@ function addScore() {
     totalScores[`${activePlayer}`];
 
   // !! for the purpose of testing winning amount of points is set to 1K instead of 10K
-  if (totalScores[`${activePlayer}`] >= 1000) {
+  if (totalScores[`${activePlayer}`] >= 10000) {
     playerWins();
   } else {
     async function asyncCall() {
@@ -539,3 +539,35 @@ function playerWins() {
 //-----------------------------------------------------------------------
 //           NAVIGATION - side bar buttons
 //_______________________________________________________________________
+
+const btnOverlay = document.querySelector('.btn-overlay');
+const scoringImg = document.querySelector('#img');
+const videoModal = document.querySelector('#video');
+
+// display of scoring combinations
+document.querySelector('#secondBtn').addEventListener('click', function () {
+  btnOverlay.classList.remove('hidden');
+  scoringImg.classList.remove('hidden');
+});
+
+// closing modal window
+const closeModal = function () {
+  btnOverlay.classList.add('hidden');
+  scoringImg.classList.add('hidden');
+  videoModal.classList.add('hidden');
+};
+
+btnOverlay.addEventListener('click', closeModal);
+
+// escape key
+document.addEventListener('keydown', function (event) {
+  if (event.key === 'Escape' && !btnOverlay.classList.contains('hidden')) {
+    closeModal();
+  }
+});
+
+// video tutorial display
+document.getElementById('thirdBtn').addEventListener('click', function () {
+  videoModal.classList.remove('hidden');
+  btnOverlay.classList.remove('hidden');
+});

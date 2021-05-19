@@ -58,8 +58,7 @@ body::after {
 
 .link {
   text-decoration: none;
-  color: #cead70;
-  text-align: center; }
+  color: #ffffff; }
 
 #title {
   transform: rotate(-90deg);
@@ -287,5 +286,22 @@ body::after {
 
 .hidden {
   display: none; }
+
+.btn-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(189, 189, 189, 0.3);
+  backdrop-filter: blur(3px);
+  z-index: 5; }
+
+.btn-modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 6; }
 
 /*# sourceMappingURL=style.css.map */
