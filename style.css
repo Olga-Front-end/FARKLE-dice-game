@@ -11,17 +11,16 @@ body {
   font-weight: 400;
   letter-spacing: 2px;
   height: 100vh; }
-
-body::after {
-  content: '';
-  background: url(img/stripes.png);
-  opacity: 0.5;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  position: absolute;
-  z-index: -2; }
+  body::after {
+    content: '';
+    background: url(img/stripes.png);
+    opacity: 0.5;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    z-index: -2; }
 
 #container {
   display: flex;
@@ -46,7 +45,7 @@ body::after {
 .helpBtn {
   flex-shrink: 0;
   margin-top: 4rem;
-  height: 2rem;
+  height: 2.5rem;
   width: 2rem;
   border: 2px solid white;
   background-color: #396b64;
@@ -55,39 +54,39 @@ body::after {
   cursor: pointer;
   text-align: center;
   padding-top: 1rem; }
+  .helpBtn:hover {
+    background-color: white;
+    opacity: 0.5; }
 
 .link {
   text-decoration: none;
-  color: #ffffff; }
+  color: white; }
 
 #title {
   transform: rotate(-90deg);
   font-family: 'Righteous', cursive;
   white-space: nowrap;
   margin-top: 100px; }
-
-#title p {
-  color: #cead70; }
+  #title p {
+    color: #cead70; }
 
 #maincontent {
   width: 92%; }
 
-#message {
+.message {
   position: relative;
   height: 2rem;
   line-height: 2rem;
   border: 3px solid #033f3a;
   text-align: center; }
-
-.message--new {
-  background-color: #cead70;
-  opacity: 0.5;
-  color: #022421; }
-
-.message--alert {
-  background-color: #ff724c;
-  opacity: 0.5;
-  color: #022421; }
+  .message--new {
+    background-color: #cead70;
+    opacity: 0.5;
+    color: #022421; }
+  .message--alert {
+    background-color: #ff724c;
+    opacity: 0.5;
+    color: #022421; }
 
 #gamearea {
   display: flex;
@@ -103,26 +102,20 @@ body::after {
   border: 3px solid darkgray;
   border-radius: 12px;
   box-shadow: 0rem 0rem 1rem rgba(7, 7, 7, 0.7); }
+  .img:hover {
+    transform: rotate(-20deg); }
 
-.img:hover {
-  transform: rotate(-20deg); }
-
-.dice--chosen {
+.dice--chosen, .dice--blocked,
+.dice--blocked--init {
   opacity: 0.6;
-  box-shadow: 0rem 0rem 1rem #f8f8f6; }
+  box-shadow: 0rem 0rem 1rem rgba(255, 255, 255, 0.7); }
 
 .avoid-clicks {
   pointer-events: none; }
 
-.dice--blocked {
-  pointer-events: none;
-  opacity: 0.6;
-  box-shadow: 0rem 0rem 1rem #f8f8f6; }
-
+.dice--blocked,
 .dice--blocked--init {
-  pointer-events: none;
-  opacity: 0.6;
-  box-shadow: 0rem 0rem 1rem #f8f8f6; }
+  pointer-events: none; }
 
 .section {
   flex: 25%;
@@ -133,10 +126,9 @@ body::after {
 
 .empty {
   flex: 20%; }
-
-.empty p {
-  text-align: center;
-  margin-top: 2rem; }
+  .empty p {
+    text-align: center;
+    margin-top: 2rem; }
 
 .player {
   box-sizing: border-box;
@@ -147,14 +139,12 @@ body::after {
   padding: 15px;
   flex-grow: 1.5;
   text-align: center; }
-
-.player--active {
-  background-image: linear-gradient(to right, #022421 0%, #ff724c 100%);
-  opacity: 0.8; }
-
-.player--active #total {
-  background-color: #207a74;
-  opacity: 1; }
+  .player--active {
+    background-image: linear-gradient(to right, #022421 0%, #ff724c 100%);
+    opacity: 0.8; }
+    .player--active .total {
+      background-color: #18a095;
+      opacity: 1; }
 
 .stripe {
   flex: 2%;
@@ -168,11 +158,10 @@ body::after {
   font-weight: bold;
   flex-grow: 0.1;
   text-align: right; }
-
-.stripe--active {
-  background-color: #ff724c;
-  opacity: 0.8;
-  z-index: -1; }
+  .stripe--active {
+    background-color: #ff724c;
+    opacity: 0.8;
+    z-index: -1; }
 
 #gameboard {
   position: absolute;
@@ -188,7 +177,7 @@ body::after {
   z-index: 1;
   background-color: #033f3a; }
 
-#total {
+.total {
   border: 3px solid white;
   margin-top: 40px;
   padding: 20px 0 20px 0;
@@ -206,47 +195,40 @@ body::after {
   color: white;
   cursor: pointer;
   background: none; }
-
-.btn:hover {
-  background-color: #396b64; }
-
-.btn:active {
-  transform: translateY(10%); }
-
-.btn:focus {
-  outline: none; }
+  .btn:hover {
+    background-color: #396b64; }
+  .btn:active {
+    transform: translateY(10%); }
+  .btn:focus {
+    outline: none; }
 
 #roll {
   position: absolute;
   transform: translate(10rem, -10rem); }
-
-#roll:active {
-  background-color: #cead70;
-  box-shadow: 0rem 0rem 2rem rgba(255, 255, 255, 0.7); }
+  #roll:active {
+    background-color: #cead70;
+    box-shadow: 0rem 0rem 2rem rgba(255, 255, 255, 0.7); }
 
 #add {
   position: absolute;
   width: 150px;
   transform: translate(-10rem, 10rem); }
-
-#add:active {
-  box-shadow: 0rem 0rem 2rem rgba(255, 255, 255, 0.7); }
+  #add:active {
+    box-shadow: 0rem 0rem 2rem rgba(255, 255, 255, 0.7); }
 
 #keep {
   position: absolute;
   transform: translate(10rem, 10rem); }
-
-#keep:active {
-  box-shadow: 0rem 0rem 2rem rgba(255, 255, 255, 0.7); }
+  #keep:active {
+    box-shadow: 0rem 0rem 2rem rgba(255, 255, 255, 0.7); }
 
 #check {
   position: absolute;
   width: 140px;
   transform: translate(0rem, 8rem); }
-
-#check:active {
-  background-color: #cead70;
-  box-shadow: 0rem 0rem 2rem rgba(255, 255, 255, 0.7); }
+  #check:active {
+    background-color: #cead70;
+    box-shadow: 0rem 0rem 2rem rgba(255, 255, 255, 0.7); }
 
 .non-active-btn {
   background-color: #396b64; }

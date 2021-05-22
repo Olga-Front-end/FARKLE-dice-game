@@ -1,30 +1,45 @@
 @import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;500;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Righteous&display=swap');
 
+$first-color-extra-light: #18a095;
+$first-color-light: #396b64;
+$first-color-medium: #144f4b;
+$first-color: #033f3a;
+$first-color-dark: #022421;
+$message-highlight-color: #cead70;
+$player-active-color: #ff724c;
+
+$white-shadow-1rem: 0rem 0rem 1rem rgba(255, 255, 255, 0.7);
+$white-shadow-2rem: 0rem 0rem 2rem rgba(255, 255, 255, 0.7);
+
 * {
   margin: 0;
   padding: 0;
 }
 
 body {
-  background-image: linear-gradient(to left, #022421 0%, #396b64 100%);
+  background-image: linear-gradient(
+    to left,
+    $first-color-dark 0%,
+    $first-color-light 100%
+  );
   color: white;
   font-family: 'Comfortaa', cursive;
   font-weight: 400;
   letter-spacing: 2px;
   height: 100vh;
-}
 
-body::after {
-  content: '';
-  background: url(img/stripes.png);
-  opacity: 0.5;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  position: absolute;
-  z-index: -2;
+  &::after {
+    content: '';
+    background: url(img/stripes.png);
+    opacity: 0.5;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    z-index: -2;
+  }
 }
 
 #container {
@@ -37,8 +52,8 @@ body::after {
   flex-direction: column;
   align-items: center;
   overflow: hidden;
-  background-color: #033f3a;
-  border: 4px solid #022421;
+  background-color: $first-color;
+  border: 4px solid $first-color-dark;
   width: 8%;
 }
 
@@ -53,58 +68,60 @@ body::after {
 .helpBtn {
   flex-shrink: 0;
   margin-top: 4rem;
-  height: 2rem;
+  height: 2.5rem;
   width: 2rem;
   border: 2px solid white;
-  background-color: #396b64;
-  box-shadow: 0rem 0rem 1rem rgba(255, 255, 255, 0.7);
+  background-color: $first-color-light;
+  box-shadow: $white-shadow-1rem;
   border-radius: 10px;
   cursor: pointer;
   text-align: center;
   padding-top: 1rem;
+
+  &:hover {
+    background-color: white;
+    opacity: 0.5;
+  }
 }
 
 .link {
   text-decoration: none;
-  color: #ffffff;
+  color: white;
 }
-
-// .link:hover {
-
-// }
 
 #title {
   transform: rotate(-90deg);
   font-family: 'Righteous', cursive;
   white-space: nowrap;
   margin-top: 100px;
-}
-#title p {
-  color: #cead70;
+
+  p {
+    color: $message-highlight-color;
+  }
 }
 
 #maincontent {
   width: 92%;
 }
 
-#message {
+.message {
   position: relative;
   height: 2rem;
   line-height: 2rem;
-  border: 3px solid #033f3a;
+  border: 3px solid $first-color;
   text-align: center;
-}
 
-.message--new {
-  background-color: #cead70;
-  opacity: 0.5;
-  color: #022421;
-}
+  &--new {
+    background-color: $message-highlight-color;
+    opacity: 0.5;
+    color: $first-color-dark;
+  }
 
-.message--alert {
-  background-color: #ff724c;
-  opacity: 0.5;
-  color: #022421;
+  &--alert {
+    background-color: $player-active-color;
+    opacity: 0.5;
+    color: $first-color-dark;
+  }
 }
 
 #gamearea {
@@ -122,31 +139,25 @@ body::after {
   border: 3px solid darkgray;
   border-radius: 12px;
   box-shadow: 0rem 0rem 1rem rgba(7, 7, 7, 0.7);
-}
 
-.img:hover {
-  transform: rotate(-20deg);
+  &:hover {
+    transform: rotate(-20deg);
+  }
 }
 
 .dice--chosen {
   opacity: 0.6;
-  box-shadow: 0rem 0rem 1rem rgb(248, 248, 246);
+  box-shadow: $white-shadow-1rem;
 }
 
 .avoid-clicks {
   pointer-events: none;
 }
 
-.dice--blocked {
-  pointer-events: none;
-  opacity: 0.6;
-  box-shadow: 0rem 0rem 1rem rgb(248, 248, 246);
-}
-
+.dice--blocked,
 .dice--blocked--init {
+  @extend .dice--chosen;
   pointer-events: none;
-  opacity: 0.6;
-  box-shadow: 0rem 0rem 1rem rgb(248, 248, 246);
 }
 
 .section {
@@ -159,52 +170,60 @@ body::after {
 
 .empty {
   flex: 20%;
-}
 
-.empty p {
-  text-align: center;
-  margin-top: 2rem;
+  p {
+    text-align: center;
+    margin-top: 2rem;
+  }
 }
 
 .player {
   box-sizing: border-box;
-  background-image: linear-gradient(to right, #022421 0%, #cead70 100%);
+  background-image: linear-gradient(
+    to right,
+    $first-color-dark 0%,
+    $message-highlight-color 100%
+  );
   opacity: 0.3;
   width: 100%;
   border-left: none;
   padding: 15px;
   flex-grow: 1.5;
   text-align: center;
-}
 
-.player--active {
-  background-image: linear-gradient(to right, #022421 0%, #ff724c 100%);
-  opacity: 0.8;
-}
+  &--active {
+    background-image: linear-gradient(
+      to right,
+      $first-color-dark 0%,
+      $player-active-color 100%
+    );
+    opacity: 0.8;
 
-.player--active #total {
-  background-color: #207a74;
-  opacity: 1;
+    .total {
+      background-color: $first-color-extra-light;
+      opacity: 1;
+    }
+  }
 }
 
 .stripe {
   flex: 2%;
   box-sizing: border-box;
-  background-color: #cead70;
+  background-color: $message-highlight-color;
   opacity: 0.3;
   z-index: -1;
   width: 100%;
-  color: #022421;
+  color: $first-color-dark;
   padding: 40px 10px 0 0;
   font-weight: bold;
   flex-grow: 0.1;
   text-align: right;
-}
 
-.stripe--active {
-  background-color: #ff724c;
-  opacity: 0.8;
-  z-index: -1;
+  &--active {
+    background-color: $player-active-color;
+    opacity: 0.8;
+    z-index: -1;
+  }
 }
 
 #gameboard {
@@ -220,93 +239,91 @@ body::after {
   width: 5rem;
   position: relative;
   z-index: 1;
-  background-color: #033f3a;
+  background-color: $first-color;
 }
 
-#total {
+.total {
   border: 3px solid white;
   margin-top: 40px;
   padding: 20px 0 20px 0;
-  background-color: #144f4b;
+  background-color: $first-color-medium;
 }
 
 .btn {
   padding: 10px;
   margin-top: 30px;
-  border: 2px solid #033f3a;
+  border: 2px solid $first-color;
   border-radius: 20px;
-  box-shadow: 0rem 0rem 1rem rgba(255, 255, 255, 0.7);
+  box-shadow: $white-shadow-1rem;
   font-family: inherit;
   font-weight: 400;
   letter-spacing: 2px;
   color: white;
   cursor: pointer;
   background: none;
-}
 
-.btn:hover {
-  background-color: #396b64;
-}
-
-.btn:active {
-  transform: translateY(10%);
-}
-
-.btn:focus {
-  outline: none;
+  &:hover {
+    background-color: $first-color-light;
+  }
+  &:active {
+    transform: translateY(10%);
+  }
+  &:focus {
+    outline: none;
+  }
 }
 
 #roll {
   position: absolute;
   transform: translate(10rem, -10rem);
-}
 
-#roll:active {
-  background-color: #cead70;
-  box-shadow: 0rem 0rem 2rem rgba(255, 255, 255, 0.7);
+  &:active {
+    background-color: $message-highlight-color;
+    box-shadow: $white-shadow-2rem;
+  }
 }
 
 #add {
   position: absolute;
   width: 150px;
   transform: translate(-10rem, 10rem);
-}
 
-#add:active {
-  box-shadow: 0rem 0rem 2rem rgba(255, 255, 255, 0.7);
+  &:active {
+    box-shadow: $white-shadow-2rem;
+  }
 }
 
 #keep {
   position: absolute;
   transform: translate(10rem, 10rem);
-}
 
-#keep:active {
-  box-shadow: 0rem 0rem 2rem rgba(255, 255, 255, 0.7);
+  &:active {
+    box-shadow: $white-shadow-2rem;
+  }
 }
 
 #check {
   position: absolute;
   width: 140px;
   transform: translate(0rem, 8rem);
-}
 
-#check:active {
-  background-color: #cead70;
-  box-shadow: 0rem 0rem 2rem rgba(255, 255, 255, 0.7);
+  &:active {
+    background-color: $message-highlight-color;
+    box-shadow: $white-shadow-2rem;
+  }
 }
 
 .non-active-btn {
-  background-color: #396b64;
+  background-color: $first-color-light;
 }
 
 .active-btn {
-  background-color: #cead70;
+  background-color: $message-highlight-color;
 }
 
 #footer {
   box-sizing: border-box;
-  background-color: #144f4b;
+  background-color: $first-color-medium;
   opacity: 0.5;
   padding-right: 3rem;
   height: 2rem;
@@ -327,8 +344,8 @@ body::after {
   right: 21.5vw;
   left: 53%;
   text-align: center;
-  background-color: #ff724c;
-  border: 6px solid #033f3a;
+  background-color: $player-active-color;
+  border: 6px solid $first-color;
   padding: 2rem;
   border-radius: 1rem;
   z-index: 4;

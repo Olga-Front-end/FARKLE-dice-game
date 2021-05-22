@@ -223,7 +223,7 @@ let newDiceResults = [];
 let notUsedDice = [];
 let totalScores = [];
 
-const message = document.querySelector('#message');
+const message = document.querySelector('.message');
 const diceImages = document.querySelectorAll('.img');
 
 const player1 = document.querySelector('#player--0');
@@ -509,6 +509,8 @@ function addScore() {
 
   keepBtn.classList.remove('active-btn');
   addBtn.classList.remove('active-btn');
+  keepBtn.classList.add('avoid-clicks');
+  addBtn.classList.add('avoid-clicks');
 }
 addBtn.addEventListener('click', addScore);
 
