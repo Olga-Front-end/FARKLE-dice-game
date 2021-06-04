@@ -20,7 +20,6 @@
       <nav id="sidebar">
         <div class="helpBtn">
           <a
-            class="link"
             href="https://gathertogethergames.com/farkle?rq=farkle"
             target="_blank"
             >❔</a
@@ -28,15 +27,15 @@
         </div>
 
         <div class="helpBtn" id="secondBtn">🎲</div>
-        <div class="btn-overlay hidden"></div>
+        <div class="helpBtn__overlay hidden"></div>
         <img
-          class="btn-modal hidden"
+          class="helpBtn__modal hidden"
           id="img"
           src="img/scoring_combinations.jpg"
         />
 
         <div class="helpBtn" id="thirdBtn">📺</div>
-        <div id="video" class="btn-modal hidden">
+        <div id="video" class="helpBtn__modal hidden">
           <iframe
             width="560"
             height="315"
@@ -48,9 +47,9 @@
           ></iframe>
         </div>
 
-        <p class="logo">FARKLE</p>
+        <p id="logo">FARKLE</p>
 
-        <h1 id="title">
+        <h1>
           <p>FARKLE</p>
           dice game
         </h1>
@@ -60,7 +59,7 @@
         <div class="message message--new">Choose dice by clicking on it.</div>
         <div id="gamearea">
           <section class="section">
-            <div class="empty"></div>
+            <div class="section__empty"></div>
             <div class="player player--active" id="player--0">
               PLAYER 1
               <div class="total">
@@ -75,24 +74,24 @@
                 <p id="current--1">1850</p>
               </div>
             </div>
-            <div class="empty">
-              <button class="btn play-again">PLAY AGAIN</button>
+            <div class="section__empty">
+              <button class="btn" id="play-again">PLAY AGAIN</button>
             </div>
           </section>
 
           <section class="section">
             <div class="stripe" id="stripe--0L"></div>
-            <div class="modal hidden">Player wins the game! 🎲</div>
+            <div class="section__modal hidden">Player wins the game! 🎲</div>
             <div class="stripe" id="stripe--1L"></div>
           </section>
 
-          <section class="section overlay" id="overlay">
-            <div class="empty">
+          <section class="section section--overlay" id="overlay">
+            <div class="section__empty">
               <p>SCORE</p>
               <div id="score" class="btn score-active">0</div>
             </div>
 
-            <div class="empty"></div>
+            <div class="section__empty"></div>
 
             <div id="gameboard">
               <img src="img/dice-1.jpg" class="img" id="dice-1" />
@@ -103,14 +102,15 @@
               <img src="img/dice-6.jpg" class="img" id="dice-6" />
             </div>
 
-            <div class="empty"></div>
-            <div class="empty"></div>
+            <div class="section__empty"></div>
+            <div class="section__empty"></div>
 
             <button class="btn" id="roll">ROLL</button>
             <button class="btn" id="check">CHECK SCORE</button>
             <button class="btn" id="add">ADD SCORE</button>
             <button class="btn" id="keep">KEEP ROLLING</button>
           </section>
+
           <section class="section">
             <div class="stripe" id="stripe--0R">1</div>
             <div class="stripe" id="stripe--1R">2</div>
@@ -122,8 +122,8 @@
     <footer id="footer">
       <p>
         Copyright &copy; 2021 Olga Baranek.
-        <a href="https://www.linkedin.com/in/olga-baranek/"
-          ><img src="img/linkedin-icon.png" class="linkedin"
+        <a href="https://www.linkedin.com/in/olga-baranek/" target="_blank"
+          ><img src="img/linkedin-icon.png"
         /></a>
       </p>
     </footer>

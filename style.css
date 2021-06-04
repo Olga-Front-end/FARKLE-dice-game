@@ -34,8 +34,15 @@ body {
   background-color: #033f3a;
   border: 4px solid #022421;
   width: 8%; }
+  #sidebar h1 {
+    transform: rotate(-90deg);
+    font-family: 'Righteous', cursive;
+    white-space: nowrap;
+    margin-top: 100px; }
+    #sidebar h1 p {
+      color: #cead70; }
 
-.logo {
+#logo {
   position: absolute;
   z-index: 1;
   width: auto;
@@ -57,18 +64,23 @@ body {
   .helpBtn:hover {
     background-color: white;
     opacity: 0.5; }
-
-.link {
-  text-decoration: none;
-  color: white; }
-
-#title {
-  transform: rotate(-90deg);
-  font-family: 'Righteous', cursive;
-  white-space: nowrap;
-  margin-top: 100px; }
-  #title p {
-    color: #cead70; }
+  .helpBtn a {
+    text-decoration: none; }
+  .helpBtn__overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(189, 189, 189, 0.3);
+    backdrop-filter: blur(3px);
+    z-index: 5; }
+  .helpBtn__modal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 6; }
 
 #maincontent {
   width: 92%; }
@@ -123,12 +135,23 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center; }
-
-.empty {
-  flex: 20%; }
-  .empty p {
+  .section__empty {
+    flex: 20%; }
+    .section__empty p {
+      text-align: center;
+      margin-top: 2rem; }
+  .section__modal {
+    position: absolute;
+    right: 21.5vw;
+    left: 53%;
     text-align: center;
-    margin-top: 2rem; }
+    background-color: #ff724c;
+    border: 6px solid #033f3a;
+    padding: 2rem;
+    border-radius: 1rem;
+    z-index: 4; }
+  .section--overlay {
+    filter: blur(2px); }
 
 .player {
   box-sizing: border-box;
@@ -245,45 +268,13 @@ body {
   line-height: 2rem;
   text-align: right;
   font-size: 12px; }
-
-.linkedin {
-  position: absolute;
-  height: 3rem;
-  right: 0.5rem;
-  bottom: 1rem; }
-
-.modal {
-  position: absolute;
-  right: 21.5vw;
-  left: 53%;
-  text-align: center;
-  background-color: #ff724c;
-  border: 6px solid #033f3a;
-  padding: 2rem;
-  border-radius: 1rem;
-  z-index: 4; }
-
-.overlay {
-  filter: blur(2px); }
+  #footer img {
+    position: absolute;
+    height: 3rem;
+    right: 0.5rem;
+    bottom: 1rem; }
 
 .hidden {
   display: none; }
-
-.btn-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(189, 189, 189, 0.3);
-  backdrop-filter: blur(3px);
-  z-index: 5; }
-
-.btn-modal {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 6; }
 
 /*# sourceMappingURL=style.css.map */

@@ -4,6 +4,8 @@
 //           CHECK SCORE functions
 //_______________________________________________________________________
 
+let score;
+
 // player freezes -1- or -2- dice and checks score
 
 const oneTwoDice = function (arr) {
@@ -13,7 +15,7 @@ const oneTwoDice = function (arr) {
       score += 100;
     } else if (arr[i] === 5) {
       score += 50;
-    } else continue; // optimize!!
+    } else continue;
   }
   return score;
 };
@@ -47,7 +49,7 @@ const fourDice = function (arr) {
           score += 100;
         } else if (arr2[i] === 5) {
           score += 50;
-        } else continue; // repeated
+        } else continue;
       } else if (arr2[i + 2] === arr2[i]) {
         if (arr2[i] === 1) {
           score += 300;
@@ -78,7 +80,7 @@ const fiveDice = function (arr) {
           score += 100;
         } else if (arr2[i] === 5) {
           score += 50;
-        } else continue; // repeated code
+        } else continue;
       } else if (arr2[i + 2] === arr2[i] && arr2[i + 3] === arr2[i]) {
         score += 1000;
         if (arr2[i + 4] === 5) score += 50;
@@ -174,13 +176,12 @@ const sixDice = function (arr) {
       score = 1500;
     } else {
       for (let i = 0; i < arr2.length; i++) {
-        // optimize!!
         if (arr2[i + 1] > arr2[i]) {
           if (arr2[i] === 1) {
             score += 100;
           } else if (arr2[i] === 5) {
             score += 50;
-          } else continue; // repeated code
+          } else continue;
         } else if (arr2[i + 2] === arr2[i] && arr2[i + 3] === arr2[i]) {
           score += 1000;
           if (arr2[i + 4] === 5) score += 50;
@@ -217,7 +218,7 @@ const sixDice = function (arr) {
 
 // variables
 
-let score, newScore, activePlayer;
+let newScore, activePlayer;
 let diceResults = [];
 let newDiceResults = [];
 let notUsedDice = [];
@@ -235,9 +236,9 @@ const checkBtn = document.getElementById('check');
 const addBtn = document.getElementById('add');
 const keepBtn = document.getElementById('keep');
 const rollBtn = document.getElementById('roll');
-const playAgainBtn = document.querySelector('.play-again');
+const playAgainBtn = document.getElementById('play-again');
 
-const modal = document.querySelector('.modal');
+const modal = document.querySelector('.section__modal');
 const overlay = document.querySelector('#overlay');
 
 const stripe1L = document.querySelector('#stripe--0L');
@@ -263,7 +264,7 @@ function init() {
   message.textContent = `PLAYER ${activePlayer + 1}  ROLLS THE DICE`;
   message.classList.remove('message--alert');
   message.classList.add('message--new');
-  overlay.classList.remove('overlay');
+  overlay.classList.remove('section--overlay');
   modal.classList.add('hidden');
 
   score = 0;
@@ -304,10 +305,10 @@ function generateNumbers() {
       document.getElementById(
         `dice-${i + 1}`
       ).src = `img/dice-${diceResults[i]}.jpg`;
-      //console.log(diceResults[i]);
+      // console.log(diceResults[i]);
     } else continue;
   }
-  console.log(diceResults);
+  console.log('dice results:', diceResults);
 }
 
 // rolling the dice
@@ -329,8 +330,6 @@ rollBtn.addEventListener('click', function () {
 
 // choosing dice by clicking on it (+ unclicking)
 
-let areNotChosen;
-
 for (let i = 0; i < diceImages.length; i++) {
   diceImages[i].addEventListener('click', function () {
     diceImages[i].classList.toggle('dice--chosen');
@@ -338,7 +337,6 @@ for (let i = 0; i < diceImages.length; i++) {
     checkBtn.style.backgroundColor = '#18a095';
     checkBtn.classList.remove('avoid-clicks');
 
-    areNotChosen = false;
     message.classList.add('message--new');
   });
 }
@@ -377,12 +375,14 @@ const checkScore = function () {
     }
   }
 
-  console.log(newDiceResults);
-  console.log(notUsedDice);
+  console.log('new dice results: ', newDiceResults);
+  console.log('not used dice: ', notUsedDice);
 
   // counting score - function type depending on a number of chosen dice
 
-  areNotChosen = false;
+  let areNotChosen = false;
+
+  console.log('score:');
 
   if (newDiceResults.length === 1 || newDiceResults.length === 2) {
     newScore += oneTwoDice(newDiceResults);
@@ -403,7 +403,7 @@ const checkScore = function () {
     areNotChosen = true;
   }
 
-  console.log(score);
+  console.log('current score: ', score);
 
   if (score === 0 && !areNotChosen) {
     if (newScore === 0) {
@@ -454,7 +454,7 @@ function keepRolling() {
       blockedDice.push(diceResults[i]);
     } else continue;
   }
-  console.log(blockedDice);
+  console.log('blocked dice: ', blockedDice);
   for (let i = 0; i < diceImages.length; i++) {
     if (blockedDice.length === 6) {
       diceImages[i].classList.remove('dice--blocked', 'dice--chosen');
@@ -486,17 +486,19 @@ function playerChange() {
   stripe1R.classList.toggle('stripe--active');
   stripe2L.classList.toggle('stripe--active');
   stripe2R.classList.toggle('stripe--active');
+
+  console.log('CHANGE OF PLAYER');
 }
 
 // adding current score to total score
 
 function addScore() {
   totalScores[`${activePlayer}`] += newScore;
-  console.log(totalScores);
+  console.log('total scores: ', totalScores);
   document.querySelector(`#current--${activePlayer}`).textContent =
     totalScores[`${activePlayer}`];
 
-  // !! for the purpose of testing winning amount of points is set to 1K instead of 10K
+  // !! for the purpose of testing, set winning amount of points to 1K instead of 10K
   if (totalScores[`${activePlayer}`] >= 10000) {
     playerWins();
   } else {
@@ -527,7 +529,7 @@ playAgainBtn.addEventListener('click', function () {
 function playerWins() {
   console.log(`Player ${activePlayer + 1} wins!`);
 
-  overlay.classList.add('overlay');
+  overlay.classList.add('section--overlay');
   modal.classList.remove('hidden');
   modal.textContent = ` YAY ! PLAYER nr ${activePlayer + 1} WINS 🎲`;
 
@@ -542,7 +544,7 @@ function playerWins() {
 //           NAVIGATION - side bar buttons
 //_______________________________________________________________________
 
-const btnOverlay = document.querySelector('.btn-overlay');
+const btnOverlay = document.querySelector('.helpBtn__overlay');
 const scoringImg = document.querySelector('#img');
 const videoModal = document.querySelector('#video');
 
